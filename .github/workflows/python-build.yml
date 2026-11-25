@@ -36,4 +36,4 @@ jobs:
         run: python -m compileall -q .
 
       - name: Build result
-        run: echo "SUCCESS: Python compilation completed!"
+        run: 'echo "SUCCESS: Python compilation completed!"'
