@@ -1,9 +1,39 @@
-# Get input from the user
-num1 = float(input("Enter first number: "))
-num2 = float(input("Enter second number: "))
 
-# Add the two numbers
-total = num1 + num2
+name: Python Build Pipeline
 
-# Display the result
-print(f"The sum of {num1} and {num2} is {total}")
+on:
+  pull_request:
+    branches:
+      - dev
+      - main
+
+  push:
+    branches:
+      - dev
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  python-build:
+    name: Python Build and Compile
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v6
+
+      - name: Download and setup Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+
+      - name: Verify Python installation
+        run: python --version
+
+      - name: Compile Python source code
+        run: python -m compileall -q .
+
+      - name: Build result
+        run: 'echo "SUCCESS: Python compilation completed!"'
